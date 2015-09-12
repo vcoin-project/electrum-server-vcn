@@ -29,7 +29,7 @@ import imp
 
 if os.path.dirname(os.path.realpath(__file__)) == os.getcwd():
     imp.load_module('electrumserver', *imp.find_module('src'))
-  
+
 
 from electrumserver import storage, networks, utils
 from electrumserver.processor import Dispatcher, print_log
@@ -109,7 +109,7 @@ def create_config(filename=None):
 
     # set network parameters
     config.add_section('network')
-    config.set('network', 'type', 'bitcoin_main')
+    config.set('network', 'type', 'vcoin_main')
 
     # try to find the config file in the default paths
     if not filename:
@@ -159,8 +159,7 @@ def cmd_getinfo():
         'peers': len(server_proc.peers),
         'sessions': len(dispatcher.request_dispatcher.get_sessions()),
         'watched': len(chain_proc.watched_addresses),
-        'cached': len(chain_proc.history_cache),
-        }
+        'cached': len(chain_proc.history_cache)}
 
 def cmd_sessions():
     return map(lambda s: {"time": s.time,
@@ -280,7 +279,7 @@ if __name__ == '__main__':
     for server in transports:
         server.start()
 
-    
+
 
     from SimpleXMLRPCServer import SimpleXMLRPCServer
     server = SimpleXMLRPCServer(('localhost', electrum_rpc_port), allow_none=True, logRequests=False)
@@ -294,7 +293,7 @@ if __name__ == '__main__':
     server.register_function(cmd_debug, 'debug')
     server.register_function(cmd_banner_update, 'banner_update')
     server.socket.settimeout(1)
- 
+
     while not shared.stopped():
         try:
             server.handle_request()

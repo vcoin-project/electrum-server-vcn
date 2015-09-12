@@ -81,7 +81,7 @@ class BlockchainProcessor(Processor):
         while not self.shared.stopped():
             self.main_iteration()
             if self.shared.paused():
-                print_log("bitcoind is responding")
+                print_log("vcoind is responding")
                 self.shared.unpause()
             time.sleep(10)
 
@@ -116,13 +116,13 @@ class BlockchainProcessor(Processor):
                 respdata = connection.read()
                 connection.close()
             except:
-                print_log("cannot reach bitcoind...")
+                print_log("cannot reach vcoind...")
                 self.wait_on_bitcoind()
             else:
                 r = loads(respdata)
                 if r['error'] is not None:
                     if r['error'].get('code') == -28:
-                        print_log("bitcoind still warming up...")
+                        print_log("vcoind still warming up...")
                         self.wait_on_bitcoind()
                         continue
                     raise BaseException(r['error'])
