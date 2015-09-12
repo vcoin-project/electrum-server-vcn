@@ -22,6 +22,6 @@ params = {
     'vcoin_test': {
         'pubkey_address': 130,
         'script_address': 30,
-        'genesis_hash': '13d8d31dde96874006da503dd2b63fa68c698dc823334359e417aa3a92f80433'
+        'genesis_hash': '00000b62077c6e53a2c7ada6e14feb5dfdeecd6001cc83d3a281145572112b17'
     }
 }
