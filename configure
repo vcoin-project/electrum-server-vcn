@@ -107,16 +107,16 @@ fi
 chown $user:$user $logfile
 
 
-bitcoind_user=$(read_config "bitcoind_user")
-if ! [ "$bitcoind_user" ]; then
-    read -p "rpcuser (from your bitcoin.conf file): " -r
-    write_config "bitcoind_user" $REPLY
+vcoind_user=$(read_config "vcoind_user")
+if ! [ "$vcoind_user" ]; then
+    read -p "rpcuser (from your vcoin.conf file): " -r
+    write_config "vcoind_user" $REPLY
 fi
 
-bitcoind_password=$(read_config "bitcoind_password")
-if ! [ "$bitcoind_password" ]; then
-    read -p "rpcpassword (from your bitcoin.conf file): " -r
-    write_config "bitcoind_password" $REPLY
+vcoind_password=$(read_config "vcoind_password")
+if ! [ "$vcoind_password" ]; then
+    read -p "rpcpassword (from your vcoin.conf file): " -r
+    write_config "vcoind_password" $REPLY
 fi
 
 

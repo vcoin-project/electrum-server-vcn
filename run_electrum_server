@@ -105,7 +105,7 @@ def create_config(filename=None):
 
     config.add_section('leveldb')
     config.set('leveldb', 'path', '/dev/shm/electrum_db')
-    config.set('leveldb', 'pruning_limit', '100')
+    config.set('leveldb', 'pruning_limit', '1000')
 
     # set network parameters
     config.add_section('network')

@@ -53,11 +53,11 @@ class BlockchainProcessor(Processor):
 
         self.dblock = threading.Lock()
 
-        self.bitcoind_url = 'http://%s:%s@%s:%s/' % (
-            config.get('bitcoind', 'bitcoind_user'),
-            config.get('bitcoind', 'bitcoind_password'),
-            config.get('bitcoind', 'bitcoind_host'),
-            config.get('bitcoind', 'bitcoind_port'))
+        self.vcoind_url = 'http://%s:%s@%s:%s/' % (
+            config.get('vcoind', 'vcoind_user'),
+            config.get('vcoind', 'vcoind_password'),
+            config.get('vcoind', 'vcoind_host'),
+            config.get('vcoind', 'vcoind_port'))
 
         self.sent_height = 0
         self.sent_header = None
@@ -112,7 +112,7 @@ class BlockchainProcessor(Processor):
         postdata = dumps({"method": method, 'params': params, 'id': 'jsonrpc'})
         while True:
             try:
-                connection = urllib.urlopen(self.bitcoind_url, postdata)
+                connection = urllib.urlopen(self.vcoind_url, postdata)
                 respdata = connection.read()
                 connection.close()
             except:
@@ -414,7 +414,7 @@ class BlockchainProcessor(Processor):
 
         # add undo info
         if not revert:
-            self.storage.write_undo_info(block_height, self.bitcoind_height, undo_info)
+            self.storage.write_undo_info(block_height, self.vcoind_height, undo_info)
 
         # add the max
         self.storage.db_undo.put('height', repr( (block_hash, block_height, self.storage.db_version) ))
@@ -591,7 +591,7 @@ class BlockchainProcessor(Processor):
 
         while True:
             try:
-                connection = urllib.urlopen(self.bitcoind_url, postdata)
+                connection = urllib.urlopen(self.vcoind_url, postdata)
                 respdata = connection.read()
                 connection.close()
             except:
@@ -624,9 +624,9 @@ class BlockchainProcessor(Processor):
 
             # are we done yet?
             info = self.bitcoind('getinfo')
-            self.bitcoind_height = info.get('blocks')
-            bitcoind_block_hash = self.bitcoind('getblockhash', [self.bitcoind_height])
-            if self.storage.last_hash == bitcoind_block_hash:
+            self.vcoind_height = info.get('blocks')
+            vcoind_block_hash = self.bitcoind('getblockhash', [self.vcoind_height])
+            if self.storage.last_hash == vcoind_block_hash:
                 self.up_to_date = True
                 break
 
@@ -661,7 +661,7 @@ class BlockchainProcessor(Processor):
                     
                     eta = ''
                     run_blocks = self.storage.height - start_catchup_height
-                    remaining_blocks = self.bitcoind_height - self.storage.height
+                    remaining_blocks = self.vcoind_height - self.storage.height
                     if run_blocks>0 and remaining_blocks>0:
                         run_minutes_per_block = (t1-start_catchup_time) / 60 / run_blocks 
                         remaining_minutes = remaining_blocks * run_minutes_per_block
