@@ -20,8 +20,9 @@ params = {
         'genesis_hash': '00000b7e804f0de87e7752550ff04d7686a4599509897feefd7f03904eb45633'
     },
     'vcoin_test': {
-        'pubkey_address': 130,
+        'pubkey_address': 127,
         'script_address': 30,
-        'genesis_hash': '00000b62077c6e53a2c7ada6e14feb5dfdeecd6001cc83d3a281145572112b17'
+        'genesis_hash': '000007e14c52364cee2d4d9483541d473e3e73c896df75882273b91313b44816'
     }
+
 }
